@@ -1,0 +1,32 @@
+﻿<mahApps:MetroWindow x:Class="AndroidMove.R3.Views.FileListWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AndroidMove.R3.Views"
+    xmlns:dlg="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+    xmlns:m="AndroidMove.R3.Models"
+    xmlns:mahApps="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:v="clr-namespace:AndroidMove.R3.Views"
+    xmlns:vm="clr-namespace:AndroidMove.R3.ViewModels"
+    xmlns:wpf="http://materialdesigninxaml.net/winfx/xaml/themes"
+    Title="{Binding AppFullTitle}"
+    dlg:DialogParticipation.Register="{Binding}"
+    Background="{DynamicResource MaterialDesignPaper}"
+    BorderThickness="1"
+    FontFamily="pack:application,,,/MaterialDesignThemes.Wpf;conponent/Resources/Roboto/#Roboto"
+    GlowBrush="{DynamicResource AccentColorBrush}"
+    ShowMaxRestoreButton="False"
+    SizeToContent="WidthAndHeight"
+    Style="{StaticResource MaterialDesignWindow}"
+    TextElement.FontSize="22"
+    TextElement.FontWeight="Regular"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    TextOptions.TextFormattingMode="Ideal"
+    TextOptions.TextRenderingMode="Auto"
+    TitleCharacterCasing="Normal"
+    Height="450" Width="800">
+    <Grid>
+        
+    </Grid>
+</mahApps:MetroWindow>

@@ -1,0 +1,20 @@
+﻿using System.Collections;
+using System.Globalization;
+using System.Windows.Data;
+
+namespace AndroidMove.R3.Converters
+{
+    public sealed class StringJoinConverter : IValueConverter
+    {
+        public string? Separator { get; set; }
+
+        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+        {
+            IEnumerable values = value as IEnumerable ?? Array.Empty<object>();
+            return string.Join(Separator ?? "", values.OfType<object>());
+        }
+
+        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+            => throw new NotImplementedException();
+    }
+}
