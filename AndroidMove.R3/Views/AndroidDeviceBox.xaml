@@ -7,7 +7,6 @@
     xmlns:v="clr-namespace:AndroidMove.R3.Views"
     xmlns:vm="clr-namespace:AndroidMove.R3.ViewModels"
     xmlns:wpf="http://materialdesigninxaml.net/winfx/xaml/themes"
-    Background="LightYellow"
     FontSize="18"
     mc:Ignorable="d">
     <Grid>

@@ -7,6 +7,15 @@ namespace AndroidMove.R3.Models
 {
     public class AndroidDevice
     {
+        public string Model { get; }
+        public string Serial { get; }
+        public DeviceConfig? Config { get; private set; }
+
+        public string LocalDirectory => System.IO.Path.Combine(
+            System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)!,
+            "Screenshots",
+            this.Serial.Replace(':', '_'));
+
         private AndroidDevice(string serial, string model)
         {
             Model = model;
@@ -19,7 +28,6 @@ namespace AndroidMove.R3.Models
             await device.InitializeAsync();
             return device;
         }
-        public DeviceConfig? Config { get; private set; }
         private async Task InitializeAsync()
         {
             var conf = App.GetService<AppConfig>()!;
@@ -31,7 +39,7 @@ namespace AndroidMove.R3.Models
                 }
                 await ProcessX.StartAsync(conf.AdbConfig.CreateScreenshotDirectoryCommand(this)).ToTask();
             }
-            catch (Exception)
+            catch
             {
             }
 
@@ -44,20 +52,13 @@ namespace AndroidMove.R3.Models
             this.Config = devConf!;
         }
 
-        public string Model { get; }
-        public string Serial { get; }
-
-        public string LocalDirectory => System.IO.Path.Combine(
-            System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)!,
-            "Screenshots",
-            this.Serial.Replace(':', '_'));
-
         public async Task<string> CaptureAsync()
         {
             var conf = App.GetService<AppConfig>()!.AdbConfig;
             await ProcessX.StartAsync(conf.GetScreenshotCommand(this, out var path)).ToTask();
             return path;
         }
+
         public async Task<string> PullAsync(string path)
         {
             var conf = App.GetService<AppConfig>()!.AdbConfig;

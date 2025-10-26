@@ -28,5 +28,6 @@
     TextOptions.TextRenderingMode="Auto"
     TitleCharacterCasing="Normal"
     mc:Ignorable="d">
-    <Grid />
+    <Grid>
+    </Grid>
 </mahApps:MetroWindow>

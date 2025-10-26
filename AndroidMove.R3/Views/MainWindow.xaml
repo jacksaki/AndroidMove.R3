@@ -18,6 +18,7 @@
     Cursor=""
     FontFamily="pack:application,,,/MaterialDesignThemes.Wpf;conponent/Resources/Roboto/#Roboto"
     GlowBrush="{DynamicResource AccentColorBrush}"
+    Icon="/Views/onigiri32.png"
     ResizeMode="NoResize"
     ShowTitleBar="True"
     SizeToContent="WidthAndHeight"
@@ -54,7 +55,14 @@
                 Margin="4"
                 Content="{wpf:PackIcon Kind=ClipboardAdd}"
                 IsChecked="{Binding WithClipboard.Value, Mode=TwoWay}"
-                Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}" />
+                Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
+                ToolTip="クリップボードにコピー" />
+            <ToggleButton
+                Margin="4"
+                Content="{wpf:PackIcon Kind=ThemeLightDark}"
+                IsChecked="{Binding IsDarkMode.Value, Mode=TwoWay}"
+                Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
+                ToolTip="テーマ(Light/Dark)" />
             <Separator />
             <ToggleButton
                 Width="40"
@@ -74,13 +82,17 @@
                     Minimum="40"
                     Style="{StaticResource MaterialDesignFloatingHintNumericUpDown}"
                     Value="{Binding PixelSize.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBlock VerticalAlignment="Center" Text="ピクセル" />
+                <TextBlock
+                    VerticalAlignment="Center"
+                    FontSize="22"
+                    Text="ピクセル" />
             </StackPanel>
             <Separator />
             <Button
                 Command="{Binding ConfigCommand}"
                 Content="{wpf:PackIcon Kind=Cog}"
-                Style="{StaticResource MaterialDesignRaisedLightButton}" />
+                Style="{StaticResource MaterialDesignRaisedLightButton}"
+                ToolTip="設定" Cursor="" />
         </ToolBar>
         <ItemsControl
             Grid.Row="1"

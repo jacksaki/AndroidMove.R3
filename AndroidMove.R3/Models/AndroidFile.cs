@@ -13,13 +13,14 @@ namespace AndroidMove.R3.Models
         public AndroidDevice Device { get; }
         public string Path { get; }
         public string FileName => this.Path.Split('/').Last();
+        public DateTime LastUpdateTime { get; }
+
         private AndroidFile(AndroidDevice device,string path, DateTime lastUpdateTime)
         {
             Device = device;
             Path = path;
             LastUpdateTime = lastUpdateTime;
         }
-        public DateTime LastUpdateTime { get; }
 
         private static async Task<DateTime>GetDateTimeCommand(AndroidDevice device,string path)
         {

@@ -62,7 +62,15 @@ namespace AndroidMove.R3.Models
                 return new AppConfig();
             }
             var json = System.IO.File.ReadAllText(Path);
-            return JsonSerializer.Deserialize<AppConfig>(json)!;
+            var conf = JsonSerializer.Deserialize<AppConfig>(json)!;
+            if (conf.Theme == null)
+            {
+                conf.Theme = new ThemeConfig()
+                {
+                    IsDarkTheme = false,
+                };
+            }
+            return conf;
         }
 
         internal DeviceConfig? GetDeviceConfig(AndroidDevice device)
