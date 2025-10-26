@@ -24,17 +24,30 @@ namespace AndroidMove.R3.Models
             return !string.IsNullOrWhiteSpace(AdbPath);
         }
 
-        public ProcessStartInfo GetListCommand(AndroidDevice device)
+        public ProcessStartInfo GetListFilesCommand(AndroidDevice device)
         {
             var conf=App.GetService<AppConfig>()!;
             return new ProcessStartInfo()
             {
                 FileName = AdbPath,
-                Arguments = $"-s {device.Serial} shell ls -tl {conf.AdbConfig.ScreenshotDirectory}",
+                Arguments = $"-s {device.Serial} shell find {conf.AdbConfig.ScreenshotDirectory} -type f",
                 UseShellExecute = false,
                 CreateNoWindow = true,
             };
         }
+
+        public ProcessStartInfo GetTimestampCommand(AndroidDevice device,string path)
+        {
+            var conf = App.GetService<AppConfig>()!;
+            return new ProcessStartInfo()
+            {
+                FileName = AdbPath,
+                Arguments = $"-s {device.Serial} shell stat -c \"%y\" {path}",
+                UseShellExecute = false,
+                CreateNoWindow = true,
+            };
+        }
+
 
         public ProcessStartInfo DirectoryExistsCommand(AndroidDevice device)
         {
@@ -97,7 +110,7 @@ namespace AndroidMove.R3.Models
             return new ProcessStartInfo()
             {
                 FileName = AdbPath,
-                Arguments = $"-s {device.Serial} pull \"{Extension.CombinePath(this.ScreenshotDirectory,src)}\" \"{destPath}\"",
+                Arguments = $"-s {device.Serial} pull \"{src}\" \"{destPath}\"",
                 UseShellExecute = false,
                 CreateNoWindow = true,
             };

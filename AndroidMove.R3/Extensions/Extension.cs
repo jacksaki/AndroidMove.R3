@@ -20,6 +20,34 @@ namespace AndroidMove.R3.Extensions
             hoge.EndInit();
             Clipboard.SetImage(hoge);
         }
+
+        public static DateTime? ToDateTime(this string? s, string? dateFormat = "")
+        {
+            if (string.IsNullOrWhiteSpace(s))
+            {
+                return null;
+            }
+            if (string.IsNullOrWhiteSpace(dateFormat))
+            {
+                dateFormat = "yyyy-MM-dd HH:mm:ss";
+            }
+            if (DateTime.TryParseExact(s!, dateFormat, null, System.Globalization.DateTimeStyles.None, out var dt2))
+            {
+                return dt2;
+            }
+            else
+            {
+                if (DateTime.TryParse(s!, out var dt3))
+                {
+                    return dt3;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
         private static int GetDecodePixelWidth(this BitmapImage img, Orientation orientation, int pixelSize)
         {
             var ratio = (double)pixelSize / GetBasePixelSize(img, orientation);

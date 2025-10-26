@@ -28,6 +28,10 @@ namespace AndroidMove.R3
                 services.AddSingleton<MainWindowViewModel>();
                 services.AddSingleton<ConfigWindow>();
                 services.AddSingleton<ConfigWindowViewModel>();
+                services.AddTransient<FileListWindow>();
+                services.AddTransient<FileListWindowViewModel>();
+                services.AddTransient<DeviceConfigWindow>();
+                services.AddTransient<DeviceConfigWindowViewModel>();
                 services.AddTransient(typeof(Lazy<>), typeof(LazyResolver<>));
                 services.AddSingleton<ColorSettingsBox>();
                 services.AddSingleton<ColorSettingsBoxViewModel>();

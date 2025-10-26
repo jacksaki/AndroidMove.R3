@@ -75,8 +75,7 @@
                 Command="{Binding FileListCommand}"
                 Content="{wpf:PackIcon Kind=Files,
                                        Size=28}"
-                Style="{StaticResource MaterialDesignRaisedButton}"
-                Visibility="Hidden" />
+                Style="{StaticResource MaterialDesignRaisedButton}" />
             <Button
                 Width="120"
                 Height="50"

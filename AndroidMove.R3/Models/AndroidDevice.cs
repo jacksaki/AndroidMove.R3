@@ -65,6 +65,19 @@ namespace AndroidMove.R3.Models
             return localPath;
         }
 
+        public async IAsyncEnumerable<AndroidFile> EnumerateFilesAsync()
+        {
+            var conf = App.GetService<AppConfig>()!.AdbConfig;
+            await foreach(var line in ProcessX.StartAsync(conf.GetListFilesCommand(this)))
+            {
+                var file = await AndroidFile.CreateFromLineAsync(this, line);
+                if(file != null)
+                {
+                    yield return file;
+                }
+            }
+        }
+
         public static async Task<List<AndroidDevice>> ListDevicesAsync()
         {
             var result = new List<AndroidDevice>();
