@@ -17,6 +17,25 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
+            <TextBlock
+                Margin="4"
+                VerticalAlignment="Center"
+                Text="モデル：" />
+            <TextBlock
+                Margin="4"
+                VerticalAlignment="Center"
+                FontWeight="Bold"
+                Text="{Binding Device.Model}" />
+            <TextBlock
+                Margin="4"
+                VerticalAlignment="Center"
+                Text="シリアル：" />
+            <TextBox
+                Margin="4"
+                IsReadOnly="True"
+                Text="{Binding Device.Serial, Mode=OneTime}" />
+        </StackPanel>
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
             <Button
                 x:Name="CaptureAndPullButton"
                 Width="120"
