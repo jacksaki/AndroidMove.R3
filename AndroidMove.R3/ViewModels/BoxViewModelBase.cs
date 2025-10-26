@@ -6,6 +6,7 @@ namespace AndroidMove.R3.ViewModels
     {
 
         private readonly MainWindowViewModel _parent;
+        public MainWindowViewModel Parent => _parent;
         public BoxViewModelBase()
         {
             _parent = App.GetService<MainWindowViewModel>()!;

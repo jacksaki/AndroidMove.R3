@@ -15,9 +15,11 @@
     dlg:DialogParticipation.Register="{Binding}"
     Background="{DynamicResource MaterialDesignPaper}"
     BorderThickness="1"
+    Cursor=""
     FontFamily="pack:application,,,/MaterialDesignThemes.Wpf;conponent/Resources/Roboto/#Roboto"
     GlowBrush="{DynamicResource AccentColorBrush}"
-    ShowMaxRestoreButton="False"
+    ResizeMode="NoResize"
+    ShowTitleBar="True"
     SizeToContent="WidthAndHeight"
     Style="{StaticResource MaterialDesignWindow}"
     TextElement.FontSize="22"
@@ -28,39 +30,60 @@
     TitleCharacterCasing="Normal"
     Topmost="{Binding ElementName=isTopMost, Path=IsChecked}"
     mc:Ignorable="d">
+    <mahApps:MetroWindow.Resources>
+        <v:BooleanToOpacityConverter
+            x:Key="BooleanToOpacityConverter"
+            FalseOpacity="0.4"
+            TrueOpacity="1.0" />
+    </mahApps:MetroWindow.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="40" />
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-        <StackPanel Orientation="Horizontal">
+        <ToolBar Grid.Row="0" Cursor="">
             <ToggleButton
                 x:Name="isTopMost"
-                Width="24"
-                Height="24"
                 Margin="4"
-                Content="-"
+                Content="{wpf:PackIcon Kind=Pin}"
+                Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
+                ToolTip="最前面固定" />
+            <ToggleButton
+                Margin="4"
+                Content="{wpf:PackIcon Kind=ClipboardAdd}"
+                IsChecked="{Binding WithClipboard.Value, Mode=TwoWay}"
+                Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}" />
+            <Separator />
+            <ToggleButton
+                Width="40"
+                Height="40"
+                Margin="4"
+                wpf:ToggleButtonAssist.OnContent="幅"
+                Content="高さ"
+                IsChecked="{Binding WidthSelected.Value, Mode=TwoWay}"
                 Style="{StaticResource MaterialDesignActionLightToggleButton}" />
-            <TextBlock VerticalAlignment="Center" Text="最前面" />
-        </StackPanel>
-        <Button
-            Grid.Column="1"
-            Width="24"
-            Height="24"
-            Margin="4"
-            Command="{Binding ConfigCommand}"
-            Content="{wpf:PackIcon Kind=Cog,
-                                   Size=12}"
-            Cursor="Hand"
-            Style="{StaticResource MaterialDesignFloatingActionLightButton}" />
+            <StackPanel Margin="4" Orientation="Horizontal">
+                <wpf:NumericUpDown
+                    Width="130"
+                    Margin="4"
+                    HorizontalContentAlignment="Right"
+                    VerticalContentAlignment="Center"
+                    FontSize="22"
+                    Minimum="40"
+                    Style="{StaticResource MaterialDesignFloatingHintNumericUpDown}"
+                    Value="{Binding PixelSize.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock VerticalAlignment="Center" Text="ピクセル" />
+            </StackPanel>
+            <Separator />
+            <Button
+                Command="{Binding ConfigCommand}"
+                Content="{wpf:PackIcon Kind=Cog}"
+                Style="{StaticResource MaterialDesignRaisedLightButton}" />
+        </ToolBar>
         <ItemsControl
             Grid.Row="1"
-            Grid.ColumnSpan="2"
             Margin="4"
             ItemsSource="{Binding DeviceViewModels}">
             <ItemsControl.ItemsPanel>
@@ -76,5 +99,10 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+        <wpf:Snackbar
+            Grid.Row="2"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Bottom"
+            MessageQueue="{Binding SnackbarMessageQueue}" />
     </Grid>
 </mahApps:MetroWindow>

@@ -68,35 +68,5 @@
                 Style="{StaticResource MaterialDesignRaisedButton}"
                 Visibility="Hidden" />
         </StackPanel>
-        <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <StackPanel Margin="4" Orientation="Horizontal">
-                <ToggleButton
-                    Width="40"
-                    Height="40"
-                    Margin="4"
-                    Content="-"
-                    IsChecked="{Binding WithClipboard.Value, Mode=TwoWay}"
-                    Style="{StaticResource MaterialDesignActionLightToggleButton}" />
-                <TextBlock VerticalAlignment="Center" Text="クリップボードにコピー" />
-            </StackPanel>
-            <Separator />
-            <ToggleButton
-                Width="40"
-                Height="40"
-                Margin="4"
-                wpf:ToggleButtonAssist.OnContent="幅"
-                Content="高さ"
-                IsChecked="{Binding WidthSelected.Value, Mode=TwoWay}"
-                Style="{StaticResource MaterialDesignActionLightToggleButton}" />
-            <StackPanel Margin="4" Orientation="Horizontal">
-                <wpf:NumericUpDown
-                    Margin="4"
-                    HorizontalContentAlignment="Right"
-                    VerticalContentAlignment="Center"
-                    Minimum="40"
-                    Value="{Binding PixelSize.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBlock VerticalAlignment="Center" Text="ピクセル" />
-            </StackPanel>
-        </StackPanel>
     </Grid>
 </UserControl>

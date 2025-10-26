@@ -20,6 +20,11 @@ namespace AndroidMove.R3.ViewModels
         public ObservableCollection<AndroidDeviceBoxViewModel> DeviceViewModels { get; }
         public SnackbarMessageQueue SnackbarMessageQueue { get; }
         public IDialogCoordinator? DialogCoordinator { get; set; }
+        public BindableReactiveProperty<bool> WithClipboard { get; }
+        public BindableReactiveProperty<bool> WidthSelected { get; }
+        public BindableReactiveProperty<Orientation> Orientation { get; } 
+        public BindableReactiveProperty<int> PixelSize { get; }
+
         public string AppTitle { get; }
         public string AppFullTitle { get; }
         public string AppVersion { get; }
@@ -45,6 +50,15 @@ namespace AndroidMove.R3.ViewModels
             this.AppFullTitle = $"{AppTitle} {AppVersion}";
             this.SnackbarMessageQueue = new SnackbarMessageQueue();
             this.DeviceViewModels.CollectionChanged += (s, e) => RaisePropertyChanged(nameof(DeviceViewModels));
+
+            this.Orientation = new BindableReactiveProperty<Orientation>(conf.CopyImageConfig.Orientation);
+            this.WidthSelected = new BindableReactiveProperty<bool>(conf.CopyImageConfig.Orientation == System.Windows.Controls.Orientation.Horizontal);
+            this.WidthSelected.Subscribe(x =>
+            {
+                this.Orientation.Value = x ? System.Windows.Controls.Orientation.Horizontal : System.Windows.Controls.Orientation.Vertical;
+            });
+            this.PixelSize = new BindableReactiveProperty<int>(conf.CopyImageConfig.PixelSize);
+            this.WithClipboard = new BindableReactiveProperty<bool>(conf.CopyImageConfig.WithClipboard);
 
             var d = Observable.Interval(TimeSpan.FromSeconds(conf.AdbConfig.IntervalSeconds)).SubscribeAwait(async (x, ct) =>
             {

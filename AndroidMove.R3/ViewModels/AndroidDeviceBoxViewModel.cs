@@ -18,19 +18,15 @@ namespace AndroidMove.R3.ViewModels
         public ReactiveCommand CaptureCommand { get; }
         public ReactiveCommand FileListCommand { get; }
         public ReactiveCommand SettingsCommand { get; }
-        public BindableReactiveProperty<bool> WithClipboard { get; }
-        public BindableReactiveProperty<bool> WidthSelected { get; }
-        public Orientation Orientation => this.WidthSelected.Value ? Orientation.Horizontal : Orientation.Vertical;
-        public BindableReactiveProperty<int> PixelSize { get; }
+        public BindableReactiveProperty<bool> WithClipboard =>this.Parent.WithClipboard;
+        public BindableReactiveProperty<int> PixelSize => this.Parent.PixelSize;
+        public BindableReactiveProperty<Orientation> Orientation => this.Parent.Orientation;
         public AndroidDeviceBoxViewModel(AndroidDevice device)
             :base()
         {
             var conf=App.GetService<AppConfig>()!;
             this.Device = device;
             var deviceConfig = conf.GetDeviceConfig(device)!;
-            this.WidthSelected = new BindableReactiveProperty<bool>(conf.CopyImageConfig.Orientation == System.Windows.Controls.Orientation.Horizontal);
-            this.PixelSize = new BindableReactiveProperty<int>(conf.CopyImageConfig.PixelSize);
-            this.WithClipboard = new BindableReactiveProperty<bool>(conf.CopyImageConfig.WithClipboard);
 
             this.CaptureAndPullCommand = new ReactiveCommand();
             this.CaptureAndPullCommand.Subscribe(async _ =>
@@ -41,7 +37,7 @@ namespace AndroidMove.R3.ViewModels
                     var localPath = await this.Device.PullAsync(path);
                     if (this.WithClipboard.Value)
                     {
-                        localPath.ToClipboard(this.Orientation, this.PixelSize.Value);
+                        localPath.ToClipboard(this.Orientation.Value, this.PixelSize.Value);
                         OnSnackBarMessage(new SnackBarMessageEventArgs("コピーしました"));
                     }
                     else
