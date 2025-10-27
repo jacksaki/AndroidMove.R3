@@ -29,7 +29,7 @@ namespace AndroidMove.R3.ViewModels
             var deviceConfig = conf.GetDeviceConfig(device)!;
 
             this.CaptureAndPullCommand = new ReactiveCommand();
-            this.CaptureAndPullCommand.Subscribe(async _ =>
+            this.CaptureAndPullCommand.SubscribeAwait(async(x,ct) =>
             {
                 try
                 {
@@ -49,20 +49,20 @@ namespace AndroidMove.R3.ViewModels
                 {
                     OnErrorOccurred(new ErrorOccurredEventArgs("エラー", ex.ToString()));
                 }
-            });
+            },  AwaitOperation.Sequential);
             this.CaptureCommand = new ReactiveCommand();
-            this.CaptureCommand.Subscribe(async _ =>
+            this.CaptureCommand.SubscribeAwait(async(x,ct) =>
             {
                 try
                 {
                     var path = await this.Device.CaptureAsync();
-                    OnSnackBarMessage(new SnackBarMessageEventArgs($"スクリーンショットを取得しました\r\n{path}"));
+                    OnSnackBarMessage(new SnackBarMessageEventArgs($"スクリーンショットを取得しました {path}"));
                 }
                 catch (Exception ex)
                 {
                     OnErrorOccurred(new ErrorOccurredEventArgs("エラー", ex.ToString()));
                 }
-            });
+            }, AwaitOperation.Sequential);
             this.FileListCommand = new ReactiveCommand();
             this.FileListCommand.Subscribe(_ =>
             {

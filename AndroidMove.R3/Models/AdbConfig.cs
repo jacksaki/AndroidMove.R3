@@ -75,11 +75,12 @@ namespace AndroidMove.R3.Models
         public ProcessStartInfo GetScreenshotCommand(AndroidDevice device,out string path)
         {
             var conf = App.GetService<AppConfig>()!;
-            path = DateTime.Now.ToString("yyyyMMddHHmmss") + ".png";
+            var fileName = DateTime.Now.ToString("yyyyMMddHHmmss") + ".png"; 
+            path=Extension.CombinePath(conf.AdbConfig.ScreenshotDirectory,fileName);
             return new ProcessStartInfo()
             {
                 FileName = AdbPath,
-                Arguments = $"-s {device.Serial} shell screencap -p {Extension.CombinePath(conf.AdbConfig.ScreenshotDirectory, path)}",
+                Arguments = $"-s {device.Serial} shell screencap -p {path}",
                 UseShellExecute = false,
                 CreateNoWindow = true,
             };

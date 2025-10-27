@@ -32,9 +32,14 @@ namespace AndroidMove.R3
                 services.AddTransient<FileListWindowViewModel>();
                 services.AddTransient<DeviceConfigWindow>();
                 services.AddTransient<DeviceConfigWindowViewModel>();
+                services.AddSingleton<ThemeSettingsWindow>();
+                services.AddSingleton<ThemeSettingsBox>();
+                services.AddSingleton<ThemeSettingsViewModel>();
                 services.AddTransient(typeof(Lazy<>), typeof(LazyResolver<>));
                 services.AddSingleton<ColorSettingsBox>();
                 services.AddSingleton<ColorSettingsBoxViewModel>();
+                services.AddSingleton<ColorToolBox>();
+                services.AddSingleton<ColorToolBoxViewModel>();
             }).Build();
 
         internal FlowDirection InitialFlowDirection { get; set; }

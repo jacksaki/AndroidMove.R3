@@ -9,7 +9,8 @@ namespace AndroidMove.R3.Models
     public class AppConfig
     {
         public static string Path => System.IO.Path.ChangeExtension(System.Reflection.Assembly.GetExecutingAssembly().Location, ".conf");
-
+        [JsonPropertyName("is_topmost")]
+        public bool IsTopMost { get; set; }
         [JsonPropertyName("adb_config")]
         [JsonInclude]
         public AdbConfig AdbConfig { get; private set; } = new AdbConfig();

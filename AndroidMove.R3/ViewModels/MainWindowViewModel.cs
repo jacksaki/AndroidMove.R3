@@ -26,7 +26,8 @@ namespace AndroidMove.R3.ViewModels
         public BindableReactiveProperty<bool> WidthSelected { get; }
         public BindableReactiveProperty<Orientation> Orientation { get; } 
         public BindableReactiveProperty<int> PixelSize { get; }
-
+        public ReactiveCommand ShowThemeSettingsCommand { get; }
+        public BindableReactiveProperty<bool> IsTopMost { get; }
         public string AppTitle { get; }
         public string AppFullTitle { get; }
         public string AppVersion { get; }
@@ -55,6 +56,9 @@ namespace AndroidMove.R3.ViewModels
                 theme.SetBaseTheme(x ? BaseTheme.Dark : BaseTheme.Light);
                 _paletteHelper.SetTheme(theme);
             });
+
+            this.IsTopMost = new BindableReactiveProperty<bool>(conf.IsTopMost);
+            this.IsTopMost.Subscribe(x => conf.IsTopMost = x);
 
             this.DeviceViewModels = new ObservableCollection<AndroidDeviceBoxViewModel>();
             var version = System.Reflection.Assembly.GetExecutingAssembly().GetVersion();
@@ -111,10 +115,17 @@ namespace AndroidMove.R3.ViewModels
                     var window = App.GetService<ConfigWindow>()!;
                     if (window.ShowDialog() == true)
                     {
-                        await DialogCoordinator.ShowMessageAsync(this,"設定","設定を保存しました。アプリを再起動します");
+                        await DialogCoordinator.ShowMessageAsync(this,"設定","設定を保存しました。アプリを再起動してください");
                         App.Current.Shutdown();
                     }
                 });
+            });
+
+            this.ShowThemeSettingsCommand = new ReactiveCommand();
+            this.ShowThemeSettingsCommand.Subscribe(_ =>
+            {
+                var window= App.GetService<ThemeSettingsWindow>()!;
+                window.ShowDialog();
             });
         }
 

@@ -29,7 +29,7 @@
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
     TitleCharacterCasing="Normal"
-    Topmost="{Binding ElementName=isTopMost, Path=IsChecked}"
+    Topmost="{Binding IsTopMost.Value, Mode=OneWay}"
     mc:Ignorable="d">
     <mahApps:MetroWindow.Resources>
         <v:BooleanToOpacityConverter
@@ -44,11 +44,11 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
-        <ToolBar Grid.Row="0" Cursor="">
+        <ToolBar Grid.Row="0" Cursor="Hand">
             <ToggleButton
-                x:Name="isTopMost"
                 Margin="4"
                 Content="{wpf:PackIcon Kind=Pin}"
+                IsChecked="{Binding IsTopMost.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
                 ToolTip="最前面固定" />
             <ToggleButton
@@ -91,8 +91,15 @@
             <Button
                 Command="{Binding ConfigCommand}"
                 Content="{wpf:PackIcon Kind=Cog}"
+                Cursor="Hand"
                 Style="{StaticResource MaterialDesignRaisedLightButton}"
-                ToolTip="設定" Cursor="" />
+                ToolTip="設定" />
+            <Separator />
+            <Button
+                Command="{Binding ShowThemeSettingsCommand}"
+                Content="{wpf:PackIcon Kind=Theme}"
+                Style="{StaticResource MaterialDesignRaisedLightButton}"
+                ToolTip="テーマ" />
         </ToolBar>
         <ItemsControl
             Grid.Row="1"

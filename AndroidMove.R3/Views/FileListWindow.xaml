@@ -11,10 +11,11 @@
     xmlns:v="clr-namespace:AndroidMove.R3.Views"
     xmlns:vm="clr-namespace:AndroidMove.R3.ViewModels"
     xmlns:wpf="http://materialdesigninxaml.net/winfx/xaml/themes"
-    Title="{Binding AppFullTitle}"
+    Title="ファイル一覧"
     dlg:DialogParticipation.Register="{Binding}"
     Background="{DynamicResource MaterialDesignPaper}"
     BorderThickness="1"
+    Cursor=""
     FontFamily="pack:application,,,/MaterialDesignThemes.Wpf;conponent/Resources/Roboto/#Roboto"
     GlowBrush="{DynamicResource AccentColorBrush}"
     ShowMaxRestoreButton="False"
@@ -24,7 +25,7 @@
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
-    TitleCharacterCasing="Normal" Cursor="">
+    TitleCharacterCasing="Normal">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

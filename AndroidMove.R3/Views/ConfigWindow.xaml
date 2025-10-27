@@ -115,8 +115,8 @@
                     Grid.Row="1"
                     Grid.Column="1"
                     HorizontalAlignment="Left"
-                    wpf:ToggleButtonAssist.OnContent="高さ"
-                    Content="幅"
+                    wpf:ToggleButtonAssist.OnContent="幅"
+                    Content="高さ"
                     IsChecked="{Binding WidthSelected.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignActionLightToggleButton}" />
             </Grid>

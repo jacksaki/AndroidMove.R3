@@ -24,6 +24,7 @@ namespace AndroidMove.R3.ViewModels
         public ReactiveCommand PullCommand { get; }
         public IDialogCoordinator DialogCoordinator { get; set; }
         public SnackbarMessageQueue MessageQueue { get; }
+        public BindableReactiveProperty<bool> FileSelected { get; }
         public ReactiveCommand ShowLocalDirectoryCommand { get; }
         public AndroidDevice Device { get; }
         public FileListWindowViewModel(AndroidDevice device) : base()
@@ -32,9 +33,12 @@ namespace AndroidMove.R3.ViewModels
             this.MessageQueue = new SnackbarMessageQueue();
             var conf = App.GetService<AppConfig>()!;
             Device = device;
+            this.FileSelected = new BindableReactiveProperty<bool>();
+
             this.ScreenshotDirectory= conf.AdbConfig.ScreenshotDirectory;
             this.LocalDirectory= new BindableReactiveProperty<string>(device.LocalDirectory);
             this.Files = new ObservableCollection<BindableAndroidFile>();
+
             this.RefreshFilesCommand = new ReactiveCommand();
             this.RefreshFilesCommand.SubscribeAwait(async (x, ct) =>
             {
@@ -58,6 +62,8 @@ namespace AndroidMove.R3.ViewModels
                     RaisePropertyChanged(nameof(Files));
                 }
             });
+
+
             this.PullCommand = new ReactiveCommand();
             this.PullCommand.Subscribe(async _ =>
             {
